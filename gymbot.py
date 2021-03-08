@@ -123,7 +123,7 @@ def check_exists_by_css(driver, css):
 def check_exists_by_css_bool(driver, css):
     try:
         driver.find_element_by_css_selector(css)
-    except:
+    except NoSuchElementException:
         return False
     return True
 
