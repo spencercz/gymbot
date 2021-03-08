@@ -1,4 +1,4 @@
-# so the damn freshmen stop reserving all the gym slots within 1 minute -spencer
+# so the gym's time slots stop filling up in literally 1 minute -spencer
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
