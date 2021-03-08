@@ -1,4 +1,4 @@
-# so the gym's time slots stop filling up in literally 1 minute -spencer
+# so that i can sign up for the gym without the slot filling up in 1 minute -spencer
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -12,11 +12,12 @@ from time import sleep
 from getpass import getpass
 
 _CSS_SELECTORS = {
-    "reserve time" : "div.col-lg-3:nth-child(4) > a:nth-child(1) > span:nth-child(2)",
-    "lower floor"  : "div.list-group-item:nth-child(2) > div:nth-child(1) > div:nth-child(2)",
-    "CAS"          : ".btn-linkedin",
-    "login"        : "#itwd-cas-netid > button:nth-child(5)",
-    "modal close"   : "#btnModalClose > span:nth-child(1)"
+    "reserve time"   : "div.col-lg-3:nth-child(4) > a:nth-child(1) > span:nth-child(2)",
+    "lower floor"    : "div.list-group-item:nth-child(2) > div:nth-child(1) > div:nth-child(2)",
+    "CAS"            : ".btn-linkedin",
+    "login"          : "#itwd-cas-netid > button:nth-child(5)",
+    "modal close"    : "#btnModalClose > span:nth-child(1)",
+    "checkout popup" : "div.card-item-main:nth-child(3) > button:nth-child(1)"
 }
 
 _TIMESLOTS = {
@@ -60,8 +61,8 @@ def signup(choice):
         time_map = make_map()
         button_exists = time_map[_TIMESLOTS[choice]][0]
     driver.find_element_by_css_selector(time_map[_TIMESLOTS[choice]][1]).click()
-    driver.find_element_by_id("checkoutButton").click() # checkout button
-    driver.find_element_by_css_selector("div.card-item-main:nth-child(3) > button:nth-child(1)").click() # checkout popup button
+    driver.find_element_by_id("checkoutButton").click()
+    driver.find_element_by_css_selector(_CSS_SELECTORS["checkout popup"]).click()
     print("Time slot get!")
 
 def check_times(driver):
