@@ -60,8 +60,9 @@ def signup(choice):
         driver.refresh()
         time_map = make_map()
         button_exists = time_map[_TIMESLOTS[choice]][0]
-    driver.find_elements_by_css_selector(time_map[_TIMESLOTS[choice]][1]).click()
-    driver.find_element_by_id("checkoutButton").click()
+    driver.find_element_by_css_selector(time_map[_TIMESLOTS[choice]][1]).click()
+    driver.find_element_by_id("checkoutButton").click() # checkout button
+    driver.find_element_by_css_selector("div.card-item-main:nth-child(3) > button:nth-child(1)").click() # checkout popup button
     print("Time slot get!")
 
 def check_times(driver):
@@ -86,10 +87,11 @@ def check_buttons(driver):
     _BUTTONS = []
     for i in range(1, 99, 2):
         if i == 1:
-            _BUTTONS.append((check_exists_by_css_bool(driver, "div.col-md-4:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(4)"), "div.col-md-4:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(4)"))
+            _BUTTONS.append((check_exists_by_css_bool(driver, "div.col-md-4:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"), "div.col-md-4:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"))
+                                                                
         else:
             try:
-                _BUTTONS.append((check_exists_by_css_bool(driver, f"div.col-sm-6:nth-child({i}) > div:nth-child(1) > div:nth-child(1) > a:nth-child(4)"), f"div.col-sm-6:nth-child({i}) > div:nth-child(1) > div:nth-child(1) > a:nth-child(4)"))
+                _BUTTONS.append((check_exists_by_css_bool(driver, f"div.col-sm-6:nth-child({i}) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"), f"div.col-sm-6:nth-child({i}) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"))                                                                 
             except:
                 pass
     return _BUTTONS
@@ -121,7 +123,7 @@ def check_exists_by_css(driver, css):
 def check_exists_by_css_bool(driver, css):
     try:
         driver.find_element_by_css_selector(css)
-    except NoSuchElementException:
+    except:
         return False
     return True
 
