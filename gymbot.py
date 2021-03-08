@@ -87,8 +87,7 @@ def check_buttons(driver):
     _BUTTONS = []
     for i in range(1, 99, 2):
         if i == 1:
-            _BUTTONS.append((check_exists_by_css_bool(driver, "div.col-md-4:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"), "div.col-md-4:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"))
-                                                                
+            _BUTTONS.append((check_exists_by_css_bool(driver, "div.col-md-4:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"), "div.col-md-4:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"))                                                           
         else:
             try:
                 _BUTTONS.append((check_exists_by_css_bool(driver, f"div.col-sm-6:nth-child({i}) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"), f"div.col-sm-6:nth-child({i}) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"))                                                                 
