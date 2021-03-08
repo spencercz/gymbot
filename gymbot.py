@@ -62,6 +62,7 @@ def signup(choice):
         button_exists = time_map[_TIMESLOTS[choice]][0]
     driver.find_elements_by_css_selector(time_map[_TIMESLOTS[choice]][1]).click()
     driver.find_element_by_id("checkoutButton").click()
+    print("Time slot get!")
 
 def check_times(driver):
     '''
