@@ -59,7 +59,10 @@ def signup(choice):
     while not button_exists:
         driver.refresh()
         time_map = make_map()
-        button_exists = time_map[_TIMESLOTS[choice]][0]
+        try:
+            button_exists = time_map[_TIMESLOTS[choice]][0]
+        except KeyError:
+            button_exists = False
     driver.find_element_by_css_selector(time_map[_TIMESLOTS[choice]][1]).click()
     driver.find_element_by_id("checkoutButton").click()
     driver.find_element_by_css_selector(_CSS_SELECTORS["checkout popup"]).click()
@@ -70,8 +73,8 @@ def check_times(driver):
     Helper function for make_map()
     '''
     _TIMES = []
-    for i in range(1, 99, 2):
-        if i == 1:
+    for i in range(3, 99, 2):
+        if i == 1:  # i will never be 1. i made an informed choice to always skip the first time slot, since that will likely never not be full. this line is here in case i reverse that decision
             _TIMES.append(driver.find_element_by_css_selector("div.col-md-4:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > small:nth-child(1)").text.split("\n", 1)[0])
         else:
             try:
@@ -85,9 +88,9 @@ def check_buttons(driver):
     Helper function for make_map()
     '''
     _BUTTONS = []
-    for i in range(1, 99, 2):
-        if i == 1:
-            _BUTTONS.append((check_exists_by_css_bool(driver, "div.col-md-4:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"), "div.col-md-4:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"))                                                           
+    for i in range(3, 99, 2):
+        if i == 1:  # see line 77
+            _BUTTONS.append((check_exists_by_css_bool(driver, "div.col-md-4:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"), "div.col-md-4:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"))                                                 
         else:
             try:
                 _BUTTONS.append((check_exists_by_css_bool(driver, f"div.col-sm-6:nth-child({i}) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"), f"div.col-sm-6:nth-child({i}) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1)"))                                                                 
@@ -146,3 +149,4 @@ if __name__ == "__main__":
         quit()
     setup()
     signup(choice)
+    driver.quit()
